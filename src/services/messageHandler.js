@@ -1,6 +1,6 @@
 import whatsappService from './whatsappService.js';
 import appendToSheet from './googleSheetsService.js';
-import openAiService from './openAiService.js';
+import openAzure from './openAzure.js';
 
 class MessageHandler {
 
@@ -132,8 +132,8 @@ class MessageHandler {
     Resumen de tu cita:
     
     Nombre: ${appointment.name}
-    Nombre de la mascota: ${appointment.petName}
-    Tipo de mascota: ${appointment.petType}
+    Nombre de la empresa: ${appointment.petName}
+    Tipo de servicio: ${appointment.petType}
     Motivo: ${appointment.reason}
     
     Nos pondremos en contacto contigo pronto para confirmar la fecha y hora de tu cita.`
@@ -157,7 +157,7 @@ class MessageHandler {
       case 'petType':
         state.petType = message;
         state.step = 'reason';
-        response = '¿Cuál es el alcalce del servicio?';
+        response = '¿Cuál es el alcance del servicio?';
         break;
       case 'reason':
         state.reason = message;
@@ -179,7 +179,7 @@ class MessageHandler {
     ];
 
     if (state.step === 'question') {
-      response = await openAiService(message);
+      response = await openAzure(message);
     }
 
     delete this.assistandState[to];
@@ -238,8 +238,8 @@ class MessageHandler {
   }
 
   async sendLocation(to) {
-    const latitude = 4.6515728653309525;
-    const longitude = -74.10653964809505;
+    const latitude = 4.6515728;
+    const longitude = -74.1065396;
     const name = 'BanCoE Bogota';
     const address = 'Cra. 68a #24 B-10 Torre 1 Local 1, Bogotá'
 
